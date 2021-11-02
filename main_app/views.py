@@ -19,3 +19,14 @@ class ProfileDetail(DetailView):
     template_name = "profile_detail.html"
 
 
+class Cities(TemplateView):
+
+    template_name = "cities.html"
+
+class SanFrancisco(TemplateView):
+
+    template_name = "sanfrancisco.html"
+
+class LosAngeles(TemplateView):
+
+    template_name = "losangeles.html"   
