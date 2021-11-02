@@ -11,7 +11,6 @@ class Profile(models.Model):
 
     # def __str__(self):
     #     return self.name #name is reference to user model
-
     # class Meta:
     #     ordering = ['name'] #also affected by user model
 

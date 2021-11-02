@@ -1,0 +1,20 @@
+
+
+.carousel {
+    margin: auto;
+    width: 80%;
+
+}
+
+.carousel-inner {
+
+    border-radius: 10px;
+
+
+}
+
+img {
+    height: 500px;
+    border-radius: 10px;
+
+}
