@@ -1,18 +1,33 @@
 from django.db import models
 import time
+import datetime
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 class Profile(models.Model):
 
-    image = models.CharField(max_length=250)
-    location = models.CharField(max_length=250)
-    created_at = models.DateTimeField(auto_now_add=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
+    
+    #add defaults
+    image = models.CharField(max_length=1000, default="https://cybergisxhub.cigi.illinois.edu/wp-content/uploads/2020/10/Portrait_Placeholder.png")
+    location = models.CharField(max_length=250, default="Denver, CO")
+    created_at = models.DateTimeField(auto_now_add=True, blank=True)
 
     # def __str__(self):
     #     return self.name #name is reference to user model
     # class Meta:
     #     ordering = ['name'] #also affected by user model
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
 
 class City(models.Model):
 
