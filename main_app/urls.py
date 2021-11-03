@@ -10,6 +10,7 @@ urlpatterns = [
     path('profile/<int:pk>/update', views.ProfileUpdate.as_view(), name = "profile_update"),
     # path('profile/<int:pk>/update', views.ProfileUpdate.as_view(), name="profile_update"),
     path('accounts/signup/', views.Signup.as_view(), name="signup"),
+    # path('login', views.MyLoginView.as_view(), name = "login")
     # path('profile/<int:pk>/posts/<int:pk>')
     # path('redirect/', views.Signup.as_view(), name="signup")
 ]

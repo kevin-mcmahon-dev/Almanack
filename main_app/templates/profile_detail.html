@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
+{% load tz %}
 {% block title %}Profile Detail{% endblock %}
 {% block content %}
 <h1>Username: {{object.user.username}}</h1>
 <h1>Full Name: {{object.user.first_name}} {{object.user.last_name}}</h1>
 <h1>Location: {{object.user.profile.location}}</h1>
+{% localtime on %}
+<h1>Join Date: {{object.user.profile.created_at}}</h1>
+{% endlocaltime %}
 <img src="{{object.user.profile.image}}" alt="Text" />
 {% endblock %}

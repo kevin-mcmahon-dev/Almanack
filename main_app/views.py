@@ -15,6 +15,7 @@ from django.contrib.auth.models import User
 from django.views.generic.detail import DetailView
 from .forms import CustomUserCreationForm
 from .models import Profile, City, Post, Comment
+from django.contrib.auth.views import LoginView
 # from . import forms
 
 # Create your views here.
@@ -60,10 +61,19 @@ class Signup(View):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            profile_id = user.profile.id
+            # return redirect("/profile/profile_id", profile_id=profile_id)
             return redirect("/")
         else:
             context = {"form": form}
             return render(request, "registration/signup.html", context)
+
+
+# class MyLoginView(LoginView):
+
+#     def get_success_url(self):
+#         url = self.get_redirect_url()
+#         return url('/profile/pk', kwargs={'pk': self.request.user.pk})
 
 class ProfileUpdate(UpdateView):
     model = Profile
