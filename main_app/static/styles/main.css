@@ -1,8 +1,12 @@
+
 .main-content {
     margin-top: 50px;
 }
 
-
+.carousel {
+    margin: auto;
+    width: 80%;
+}
 
 .carousel-inner {
     border-radius: 10px;
@@ -21,4 +25,5 @@ div h1 {
     text-decoration: none;
     color: black;
 }
+
 
