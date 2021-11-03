@@ -33,9 +33,14 @@ class ProfileDetail(DetailView):
     model = Profile
     template_name = "profile_detail.html"
 
-    def get_context_data(self, **kwargs):
+    # def get(self, request, pk, profile_pk):
+    #     User.objects.get(pk=pk)
+    #     Profile.objects.get(profile_pk=profile_pk)
+
+    def get_context_data(self, **kwargs,):
         context = super().get_context_data(**kwargs)
         context["posts"] = Post.objects.all()
+        # context["users"] = User.objects.all
         return context
 
 class Signup(View):

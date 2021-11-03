@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}Profile Detail{% endblock %}
 {% block content %}
-<h1>{{user.username}}</h1>
-<h1>{{user.first_name}} {{user.last_name}}</h1>
-<h1>{{user.profile.location}}</h1>
-<img src="{{user.profile.image}}" alt="Text" />
+<h1>Username: {{object.user.username}}</h1>
+<h1>Full Name: {{object.user.first_name}} {{object.user.last_name}}</h1>
+<h1>Location: {{object.user.profile.location}}</h1>
+<img src="{{object.user.profile.image}}" alt="Text" />
 {% endblock %}
