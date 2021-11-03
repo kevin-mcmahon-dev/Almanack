@@ -14,6 +14,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
 from django.views.generic.detail import DetailView
 from .forms import CustomUserCreationForm
+from .models import Profile, City, Post, Comment
 # from . import forms
 
 # Create your views here.
@@ -22,15 +23,20 @@ class Index(TemplateView):
 
     template_name = "index.html"
 
+    # def temporary_redirect_view(request):
+    #     response = redirect('signup.html')
+    #     response.status_code = 307
+    #     return response
+
 class ProfileDetail(DetailView):
 
-    # model = Profile
-    model = User
-    slug_field = "username"
+    model = Profile
     template_name = "profile_detail.html"
 
-    # def myview(request):
-    #     user = request.user
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["posts"] = Post.objects.all()
+        return context
 
 class Signup(View):
     # show a form to fill out
@@ -49,8 +55,15 @@ class Signup(View):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect("index")
+            return redirect("/")
         else:
             context = {"form": form}
             return render(request, "registration/signup.html", context)
+
+class ProfileUpdate(UpdateView):
+    model = Profile
+    fields = ['image', 'location']
+    template_name = "profile_update.html"
+    success_url = "/"
+    # "/profile/<int:pk>"
 

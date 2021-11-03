@@ -17,21 +17,13 @@
         <nav class="navbar navbar-dark bg-dark">
             <div class="container-fluid">
               <a class="navbar-brand">Almanack</a>
-              <!-- <form class="d-flex">
-                <button class="btn btn-link" type="submit">Sign in </button>
-                <button class="btn btn-link" type="submit">Sign up</button>
-                <button class="btn btn-link" type="submit">Profile</button>
-              </form> -->
+              
             </div>
             {% if user.is_authenticated %}
-            <!-- <form class="d-flex">
-                <button class="btn btn-link" type="submit">Sign in </button>
-                <button class="btn btn-link" type="submit">Sign up</button>
-                <button class="btn btn-link" type="submit">Profile</button>
-              </form>     -->
+            
             <div class="navbar-menu navbar-end">
                     <span class="navbar-item">Welcome: {{user.username}}</span>
-                    <a class="navbar-item" href="{% url 'profile_detail' %}">Profile</a>
+                    <a class="navbar-item" href="{% url 'profile_detail' user.profile.id %}">Profile</a>
                     <a class="navbar-item" href="{% url 'logout' %}">Logout</a>
                 </div>
             {% else %}
