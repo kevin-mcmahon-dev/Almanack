@@ -1,0 +1,17 @@
+
+.user-information {
+    width: 100%;
+    height: 100px;
+}  
+
+.user-img img {
+    width: 100px;
+    height: 100px;
+
+}
+
+.user-profile {
+    display: flex;
+    justify-content: space-between;
+}
+

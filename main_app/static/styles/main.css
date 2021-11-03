@@ -1,20 +1,26 @@
 
 
-.carousel {
-    margin: auto;
-    width: 80%;
 
+.main-content {
+    margin-top: 50px;
 }
 
+
+
 .carousel-inner {
-
     border-radius: 10px;
-
-
 }
 
 img {
     height: 500px;
     border-radius: 10px;
+}
 
+div h1 {
+    text-align: center;
+}
+
+.browse-btn button a{
+    text-decoration: none;
+    color: black;
 }

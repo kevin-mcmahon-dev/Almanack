@@ -1,0 +1,20 @@
+
+.post-main {
+    display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+    align-items: center;
+    padding-top: 25px;
+}
+
+
+
+.post-image {
+    width: 400px;
+}
+
+.post-body {
+    margin-top: 25px;
+    border: 1px solid black;
+    height: 50vh;
+}

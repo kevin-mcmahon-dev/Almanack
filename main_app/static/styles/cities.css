@@ -1,0 +1,29 @@
+
+
+.side-nav {
+    position: absolute;
+}
+
+
+.city-info {
+    position: absolute;
+    margin-left: 480px;
+    margin-top: 25px;
+}
+
+.city-info img {
+    padding: 20px;
+    height: 250px;
+}
+
+.city {
+    display: flex;
+    align-items: center;
+}
+
+.post-image {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    height: 100px;
+}
