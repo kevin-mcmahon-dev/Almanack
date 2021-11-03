@@ -3,7 +3,6 @@ from . import views
 
 urlpatterns = [
 
-
     path('', views.Index.as_view(), name ="index"),
     # path('^profile/username/(?P<slug>[\w.@+-]+)/$', views.ProfileDetail.as_view(), name="profile_detail"),
     path('profile/<int:pk>', views.ProfileDetail.as_view(), name = "profile_detail"),
@@ -13,5 +12,8 @@ urlpatterns = [
     # path('login', views.MyLoginView.as_view(), name = "login")
     # path('profile/<int:pk>/posts/<int:pk>')
     # path('redirect/', views.Signup.as_view(), name="signup")
+    path('cities', views.Cities.as_view(), name ="cities"),
+    path('cities/<int:pk>/', views.CityDetail.as_view(), name ="city_detail"),
+
 ]
 
