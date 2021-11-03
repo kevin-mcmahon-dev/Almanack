@@ -3,13 +3,13 @@ from django.shortcuts import redirect, render
 from django.views import View
 from django.views.generic.base import TemplateView
 from django.http import HttpResponse
-from .models import Profile, City, Post, Comment, Forms, UserForm, ProfileForm
+from .models import Profile, City, Post, Comment
 from django.views.generic import DetailView
 from main_app.models import Profile, City, Post
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse
 from django.contrib.auth import login
-from django.contrib.auth.forms import UserCreationForm
+# from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.models import User
@@ -25,6 +25,11 @@ from django.contrib.auth.views import LoginView
 class Index(TemplateView):
 
     template_name = "index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cities'] = City.objects.all()
+        return context
 
     # def temporary_redirect_view(request):
     #     response = redirect('signup.html')
