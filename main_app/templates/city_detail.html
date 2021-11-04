@@ -11,7 +11,7 @@
 
         <!-- Each city in Side Bar tabs -->
          <div class="list-group list-group-flush border-bottom scrollarea">
-          {% for name in cities %}
+          {% for name in cities.all %}
  
           <a href="{%url 'city_detail' name.id%}" class="list-group-item list-group-item-action active py-3 lh-tight" aria-current="true">
             <div class="d-flex w-100 align-items-center justify-content-between">             
@@ -25,33 +25,25 @@
 
             <!-- To get the city -->
             <div class="city-info">
-              <div class="city">
-                <!-- How to grab the id of the city of whichever URL you are viewing?  -->
-                {% for city in cities.all %}
-                  <div class="title">
+              <div class="city">                          
+                    <div class="title">
                       <h1>{{city.name}}</h1>
                     </div>
-
                     <div class="img">
                         <img src="{{city.image}}" class="d-block w-100" alt="city image">
-                    </div>
-                    {% endfor %}
+                    </div>                     
               </div>
 
 
               <!-- Post titles for that city -->
-              <!-- How to grab the post related to that city based on URL? -->
-              {% for post in cities.all reversed %}
+              {% for post in city.posts.all reversed %}
               <div class="posts">
                   <div class="post-image">
                   <!-- <img src="https://images.pexels.com/photos/1141853/pexels-photo-1141853.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" class="d-block w-100" alt="..."> -->
                   </div>
-                  <a class="post-title" href=""><button>Title{{cities.post.title}}</button></a>     
-                  
-                  {% endfor %}
-              </div>
-              
-      
+                  <a class="post-title" href=""><button>Title: {{post.title}}</button></a>     
+              {% endfor %}
+              </div>      
             </div>
       
        
