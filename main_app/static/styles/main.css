@@ -21,9 +21,22 @@ div h1 {
     text-align: center;
 }
 
-.browse-btn button a{
+.browse-btn button a {
     text-decoration: none;
     color: black;
 }
 
+h5 a {
 
+    color: white;
+}
+
+h5 a:hover {
+    color: black;
+}
+
+.user-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}

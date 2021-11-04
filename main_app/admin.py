@@ -18,5 +18,24 @@ class ProfileInline(admin.StackedInline):
 class UserAdmin(BaseUserAdmin):
     inlines = (ProfileInline,)
 
+class CityAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug')
+    list_filter = ('name',)
+    prepopulated_fields = {'slug': ('name',) }
+
+
+
+class ProfileAdmin(admin.ModelAdmin):
+    
+    prepopulated_fields = {'slug': ('user',) }
+    
+  
+
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
+
+admin.site.unregister(City)
+admin.site.register(City, CityAdmin)
+
+admin.site.unregister(Profile)
+admin.site.register(Profile, ProfileAdmin)

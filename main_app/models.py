@@ -2,6 +2,7 @@ from django.db import models
 import time
 import datetime
 from django.contrib.auth.models import User
+from django.db.models.fields import SlugField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django import forms
@@ -9,11 +10,15 @@ from django import forms
 
 # Create your models here.
 class Profile(models.Model):
-
+    
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=1)
-    image = models.CharField(max_length=1000, default="https://cybergisxhub.cigi.illinois.edu/wp-content/uploads/2020/10/Portrait_Placeholder.png")
+    slug = SlugField(unique=True)
+    image = models.ImageField(upload_to='images')
     location = models.CharField(max_length=250, default="Denver, CO")
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
+
+    def __str__(self):
+        return f'{self.user} - {self.slug}'
     
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -45,7 +50,8 @@ def save_user_profile(sender, instance, **kwargs):
 class City(models.Model):
 
     name = models.CharField(max_length=250)
-    image = models.CharField(max_length=250)
+    slug = models.SlugField(unique=True)
+    image = models.ImageField(upload_to='images')
     nickname = models.CharField(max_length=250)
     demonym = models.CharField(max_length=250)
     country = models.CharField(max_length=250)
@@ -57,8 +63,8 @@ class City(models.Model):
         return self.name
 
 class Post(models.Model):
-    
     title = models.CharField(max_length=250)
+    slug = SlugField()
     content = models.TextField(max_length=1000)
     image = models.CharField(max_length=250)
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -69,11 +75,13 @@ class Post(models.Model):
         return self.title
 
 class Comment(models.Model):
-
     content = models.TextField(max_length=1000)
     timestamp = models.DateTimeField(auto_now_add=True)
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='comments')
+
+    def __str__(self):
+        return self.content
 
 # class UserForm(forms.Form):
 #     name = forms.CharField()

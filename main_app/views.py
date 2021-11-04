@@ -1,6 +1,7 @@
 
 from django.shortcuts import redirect, render
 from django.views import View
+from django.views.generic import detail
 from django.views.generic.base import TemplateView
 from django.http import HttpResponse
 from .models import Profile, City, Post, Comment
@@ -30,6 +31,7 @@ class Index(TemplateView):
         context = super().get_context_data(**kwargs)
         context['cities'] = City.objects.all()
         return context
+
 
     # def temporary_redirect_view(request):
     #     response = redirect('signup.html')
@@ -103,13 +105,28 @@ class Cities(TemplateView):
 class CityDetail(DetailView):
     model = City
     template_name = "city_detail.html"
-
     # *****This is the good stuff right here
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["cities"] = City.objects.all()
-        # context["posts"] = Post.objects.all()
         return context
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["posts"] = Post.objects.all()
+        return context
+
+
+
+class PostDetail(DetailView):
+    model = Post
+    template_name = 'post-show.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["posts"] = Post.objects.all()
+        return context
+
 
 # class ProfileUpdateView(LoginRequiredMixin, TemplateView):
 #     user_form = UserForm
