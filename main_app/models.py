@@ -2,9 +2,11 @@ from django.db import models
 import time
 import datetime
 from django.contrib.auth.models import User
+from django.db.models.fields import SlugField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django import forms
+from django.urls import reverse
 
 
 # Create your models here.
@@ -14,6 +16,13 @@ class Profile(models.Model):
     image = models.CharField(max_length=1000, default="https://cybergisxhub.cigi.illinois.edu/wp-content/uploads/2020/10/Portrait_Placeholder.png")
     location = models.CharField(max_length=250, default="Denver, CO")
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
+    # slug = SlugField(unique=True)
+
+    def __str__(self):
+        return self.user
+
+    # def get_absolute_url(self):
+    #     return reverse('profile_detail', kwargs={'slug': self.slug})
     
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -52,18 +61,20 @@ class City(models.Model):
     state = models.CharField(max_length=250)
     population = models.IntegerField(default=0)
     summary = models.TextField(max_length=1000)
+    # slug = SlugField()
 
     def __str__(self):
         return self.name
 
 class Post(models.Model):
     
-    title = models.CharField(max_length=250)
+    title = models.CharField(max_length=200)
     content = models.TextField(max_length=1000)
     image = models.CharField(max_length=250)
     timestamp = models.DateTimeField(auto_now_add=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='posts')
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='posts')
+    # slug = SlugField()
 
     def __str__(self):
         return self.title

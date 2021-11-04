@@ -1,4 +1,5 @@
 
+from typing import ContextManager
 from django.shortcuts import redirect, render
 from django.views import View
 from django.views.generic.base import TemplateView
@@ -36,6 +37,7 @@ class Index(TemplateView):
     #     response.status_code = 307
     #     return response
 
+# @login_required(login_url='/accounts/login/')
 class ProfileDetail(DetailView):
 
     model = Profile
@@ -50,6 +52,7 @@ class ProfileDetail(DetailView):
         context["posts"] = Post.objects.all()
         # context["users"] = User.objects.all
         return context
+
 
 class Signup(View):
     # show a form to fill out
@@ -100,16 +103,60 @@ class Cities(TemplateView):
         context["cities"] = City.objects.all()
         return context
 
+
+
 class CityDetail(DetailView):
     model = City
+    
     template_name = "city_detail.html"
 
-    # *****This is the good stuff right here
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["posts"] = Post.objects.all()
+        return context
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["cities"] = City.objects.all()
-        # context["posts"] = Post.objects.all()
         return context
+
+class PostShow(DetailView):
+    model = Post
+    template_name = "post_show.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["posts"] = Post.objects.all()
+        return context
+
+class PostCreate(View):
+
+    def post(self, request, pk):
+        
+        def get_user(request):
+            current_user = request.user
+            return current_user
+
+        title = request.POST.get("title")
+        image = request.POST.get("image")
+        content = request.POST.get("content")
+        city = City.objects.get(pk=pk)
+        profile = get_user(request)
+        profile_id = profile.id
+        Post.objects.create(title=title, image=image, content=content, city=city, profile_id=profile_id)
+        return redirect("/")
+        # return redirect("cities_detail", pk=pk)
+
+class PostUpdate(UpdateView):
+    model = Post
+    fields = ['title', 'content', 'image']
+    template_name = "post_update.html"
+    success_url = "/"
+
+class PostDelete(DeleteView):
+    model = Post
+    template_name = "post_delete_confirmation.html"
+    success_url = "/"
 
 # class ProfileUpdateView(LoginRequiredMixin, TemplateView):
 #     user_form = UserForm
