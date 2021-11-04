@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,8 +10,6 @@
     <!-- <link rel="stylesheet" href=" {% static 'styles/main.css' %} "> -->
     <title>Cities</title>
 </head>
-
-
 
     <!-- that NAV BAR -->
     <nav class="navbar navbar-dark bg-dark">
@@ -27,27 +24,26 @@
       </nav>
 
         {% block content %}
-        <!-- Cities End-Bar -->
-        <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white side-nav" style="width: 380px;">
-            <a href="{%url 'cities' %}" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-              <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
-              <span class="fs-5 fw-semibold">Cities</span>
-            </a>
-    
-    
-            <!-- dyn. ren. Each city in Side Bar tabs -->
-            <div class="list-group list-group-flush border-bottom scrollarea">
-              {% for name in cities %}
-    
+          <!-- Not sure why this doesn't work from base to cities, can you not use DTL in the extend?  -->
+        <!-- <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white side-nav" style="width: 380px;">
+          <a href="{%url 'cities' %}" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+            <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+            <span class="fs-5 fw-semibold">Cities</span>
+          </a>
+
+          <div class="list-group list-group-flush border-bottom scrollarea">
+            {% for name in cities %}
+  
+            
+            <a href="{%url 'city_detail' name.id%}" class="list-group-item list-group-item-action active py-3 lh-tight" aria-current="true">
+              <div class="d-flex w-100 align-items-center justify-content-between">             
+                <strong class="mb-1">{{name}}</strong>
               
-              <a href="{%url 'city_detail' name.id%}" class="list-group-item list-group-item-action active py-3 lh-tight" aria-current="true">
-                <div class="d-flex w-100 align-items-center justify-content-between">             
-                  <strong class="mb-1">{{name}}</strong>
-                
-                </div>
-              </a>
-              {% endfor %}
-            </div>
-    
+              </div>
+            </a> 
+            {% endfor %}
           </div>
+  
+        </div> 
+   -->
           {% endblock %}
