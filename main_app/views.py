@@ -1,4 +1,5 @@
 
+from typing import ContextManager
 from django.shortcuts import redirect, render
 from django.views import View
 from django.views.generic.base import TemplateView
@@ -120,6 +121,28 @@ class PostShow(DetailView):
         context = super().get_context_data(**kwargs)
         context["posts"] = Post.objects.all()
         return context
+
+# @method_decorator(login_required, name='dispatch')
+class PostCreate(View):
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     user_id = self.request.GET.get("id")
+
+    def post(self, request, pk):
+        
+        def get_user(request):
+            current_user = request.user
+            return current_user
+
+        title = request.POST.get("title")
+        image = request.POST.get("image")
+        content = request.POST.get("content")
+        city = City.objects.get(pk=pk)
+        profile = get_user(request)
+        profile_id = profile.id
+        Post.objects.create(title=title, image=image, content=content, city=city, profile_id=profile_id)
+        return redirect("/")
+        # return redirect("cities_detail", pk=pk)
 
 # class ProfileUpdateView(LoginRequiredMixin, TemplateView):
 #     user_form = UserForm

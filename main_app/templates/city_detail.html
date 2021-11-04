@@ -59,6 +59,17 @@
                         <img src="https://images.pexels.com/photos/1141853/pexels-photo-1141853.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" class="d-block w-100" alt="...">
                     </div>
 
+                    {% if user.is_authenticated %}
+                    <h1 class="title">Create Post</h1>
+                    <form method="post" action="{% url 'post_create' city.pk%}">
+                      {% csrf_token %}
+                      <input class="input" type="text" name="title" placeholder="Title" required />
+                      <input class="input" type="text" name="content" placeholder="Add your post here!" required />
+                      <input class="input" type="text" name="image" placeholder="Add an image" required />
+                      <!-- <input class="input" type="text" name="profile" placeholder="Profile ID" required /> -->
+                      <input type="submit" class="btn" value="Create Post" />
+                    </form>
+                    {% endif %}
               </div>
               
       
