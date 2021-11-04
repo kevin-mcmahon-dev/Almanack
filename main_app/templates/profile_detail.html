@@ -1,39 +1,25 @@
-
 {% extends 'base.html' %}
-
 {% load tz %}
 {% block title %}Profile Detail{% endblock %}
 {% block content %}
-<h1>Username: {{object.user.username}}</h1>
-<h1>Full Name: {{object.user.first_name}} {{object.user.last_name}}</h1>
-<h1>Location: {{object.user.profile.location}}</h1>
-{% localtime on %}
-<h1>Join Date: {{object.user.profile.created_at}}</h1>
-{% endlocaltime %}
-<img src="{{object.user.profile.image}}" alt="Text" />
 
-
-    <!-- <div class="user-information">
-            <div class="user-profile">
-                        <img src="https://cdn.mos.cms.futurecdn.net/VSy6kJDNq2pSXsCzb6cvYF.jpg" alt="">
-                        <h6>Cat</h6>
-                        <h6>Los Angeles</h6>
-                        <p>Member since 10.21.21</p>
-            </div>
-    </div> -->
-
+    <!-- dyn. ren. profile user info -->
     <div class="card mb-3" style='width: 100%;'>
         <div class="row g-0">
           <div class="col-md-4">
-            <img src="https://cdn.mos.cms.futurecdn.net/VSy6kJDNq2pSXsCzb6cvYF.jpg" class="img-fluid rounded-start" alt="...">
+            <img src="{{object.user.profile.image}}" class="img-fluid rounded-start" alt="user profile image">
           </div>
-          <div class="col-md-8 mx-auto">
+          <div class="col-md-8 mx-auto">          
             <div class="card-body">
-              <h5 class="card-title">CAT</h5>
-              <p class="card-text">Los Angeles</p>
-              <p class="card-text"><small class="text-muted">Member since 10.21.21</small></p>
-            </div>
-          </div>
+              <h5 class="card-title">Username: {{object.user.username}}</h5>
+              <p class="card-text">Full Name: {{object.user.first_name}} {{object.user.last_name}}</p>
+              <p class="card-text">Location: {{object.user.profile.location}}</p>
+              <p class="card-text"><small class="text-muted">{% localtime on %}
+                Join Date: {{object.user.profile.created_at}}
+                {% endlocaltime %}</small></p>
+                <a href="{% url 'profile_update' object.user.profile.id%}"><button>Update My Profile</button></a>               
+            </div>           
+          </div> 
         </div>
       </div>
 {% for post in posts %}
@@ -42,44 +28,32 @@
 {% endfor %}
 
 <div class="main-content container">
-
+  
     <div class="row row-cols-1 row-cols-md-3 g-4">
+
+      <!-- WHY does this work??  -->
+      {% for post in object.user.profile.posts.all %}
+
         <div class="col">
-          <div class="card h-100">
+          <div class="card h-50">
             <img src="https://images.pexels.com/photos/1141853/pexels-photo-1141853.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" class="card-img-top" alt="...">
             <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+              <h5 class="card-title">{{post.city}}</h5>
+              <!-- <p class="card-text">{{post.title}}</p> -->
+
+                <!-- url needs .post? or?  -->
+              <a href="{% url 'post_show' object.user.profile.id%}"><button>{{post.title}}</button></a>     
+
             </div>
             <div class="card-footer">
-              <small class="text-muted">Last updated 3 mins ago</small>
+              <small class="text-muted"></small>
             </div>
           </div>
+          {% endfor %}
+
         </div>
-        <div class="col">
-          <div class="card h-100">
-            <img src="https://images.pexels.com/photos/1141853/pexels-photo-1141853.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card h-100">
-            <img src="https://images.pexels.com/photos/1141853/pexels-photo-1141853.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">Last updated 3 mins ago</small>
-            </div>
-          </div>
-        </div>
+
+
       </div>
 </div>
 
