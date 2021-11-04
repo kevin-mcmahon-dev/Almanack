@@ -8,6 +8,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from main_app.models import Profile
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 # class UserForm(forms.ModelForm):
 #     class Meta:
@@ -23,6 +25,13 @@ from django.contrib.auth.forms import UserCreationForm
 #     your_name = forms.CharField(label='Your name', max_length=100)
     
 class CustomUserCreationForm(UserCreationForm):
+    
+    def clean(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise ValidationError("Email exists")
+        return self.cleaned_data
+
     class Meta(UserCreationForm.Meta):
         fields = UserCreationForm.Meta.fields + ("email", "first_name", "last_name")
     # class Meta:

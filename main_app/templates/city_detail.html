@@ -29,10 +29,32 @@
                     <div class="title">
                       <h1>{{city.name}}</h1>
                     </div>
-                    <div class="img">
-                        <img src="{{city.image}}" class="d-block w-100" alt="city image">
-                    </div>                     
-              </div>
+                
+                      <div class="img">
+                           <img src="{{city.image}}" class="d-block w-100" alt="city image">
+                      </div>
+                
+                </div>
+             </div>
+
+
+
+                    
+                    
+
+                    {% if user.is_authenticated %}
+                    <h1 class="title">Create Post</h1>
+                    <form method="post" action="{% url 'post_create' city.pk%}">
+                      {% csrf_token %}
+                      <input class="input" type="text" name="title" placeholder="Title" required />
+                      <input class="input" type="text" name="content" placeholder="Add your post here!" required />
+                      <input class="input" type="text" name="image" placeholder="Add an image" required />
+                      <!-- <input class="input" type="text" name="profile" placeholder="Profile ID" required /> -->
+                      <input type="submit" class="btn" value="Create Post" />
+                    </form>
+                    {% endif %}
+
+              
 
 
               <!-- Post titles for that city -->
