@@ -36,6 +36,10 @@
           </div>
         </div>
       </div>
+{% for post in posts %}
+  <div>{{post.title}}</div>
+  <div>{{post.content}}</div>
+{% endfor %}
 
 <div class="main-content container">
 

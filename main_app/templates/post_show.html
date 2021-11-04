@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Log In{% endblock %}
+{% block content %}
+
+<div class="container">
+    <div class="post-main">
+      <div class="post-image">
+          <img src="{{post.image}}" class="d-block w-100" alt="...">
+        </div>
+
+      <div class="post-info">
+          <h3>{{post.city.name}}</h3>
+          <h3>{{ post.title }}</h3>
+          <h6>{{post.profile.user.username}}</h6>
+      </div>
+
+    </div>
+    <div class="post-body">{{post.content}}</div>
+
+    
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+{% endblock %}
