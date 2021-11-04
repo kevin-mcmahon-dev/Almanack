@@ -36,6 +36,7 @@ class Index(TemplateView):
     #     response.status_code = 307
     #     return response
 
+# @login_required(login_url='/accounts/login/')
 class ProfileDetail(DetailView):
 
     model = Profile
@@ -109,6 +110,15 @@ class CityDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context["cities"] = City.objects.all()
         # context["posts"] = Post.objects.all()
+        return context
+
+class PostShow(DetailView):
+    model = Post
+    template_name = "post_show.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["posts"] = Post.objects.all()
         return context
 
 # class ProfileUpdateView(LoginRequiredMixin, TemplateView):

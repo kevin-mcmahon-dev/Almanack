@@ -14,6 +14,7 @@ urlpatterns = [
     # path('redirect/', views.Signup.as_view(), name="signup")
     path('cities', views.Cities.as_view(), name ="cities"),
     path('cities/<int:pk>/', views.CityDetail.as_view(), name ="city_detail"),
+    path('posts/<int:pk>/', views.PostShow.as_view(), name="post_show"),
 
 ]
 
