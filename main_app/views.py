@@ -122,11 +122,7 @@ class PostShow(DetailView):
         context["posts"] = Post.objects.all()
         return context
 
-# @method_decorator(login_required, name='dispatch')
 class PostCreate(View):
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     user_id = self.request.GET.get("id")
 
     def post(self, request, pk):
         
@@ -143,6 +139,17 @@ class PostCreate(View):
         Post.objects.create(title=title, image=image, content=content, city=city, profile_id=profile_id)
         return redirect("/")
         # return redirect("cities_detail", pk=pk)
+
+class PostUpdate(UpdateView):
+    model = Post
+    fields = ['title', 'content', 'image']
+    template_name = "post_update.html"
+    success_url = "/"
+
+class PostDelete(DeleteView):
+    model = Post
+    template_name = "post_delete_confirmation.html"
+    success_url = "/"
 
 # class ProfileUpdateView(LoginRequiredMixin, TemplateView):
 #     user_form = UserForm

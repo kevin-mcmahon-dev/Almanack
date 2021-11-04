@@ -15,8 +15,9 @@ urlpatterns = [
     path('cities', views.Cities.as_view(), name ="cities"),
     path('cities/<int:pk>/', views.CityDetail.as_view(), name="city_detail"),
     path('cities/<int:pk>/new-post', views.PostCreate.as_view(), name ="post_create"),
-    
     path('posts/<int:pk>/', views.PostShow.as_view(), name="post_show"),
+    path('posts/<int:pk>/update', views.PostUpdate.as_view(), name="post_update"),
+    path('posts/<int:pk>/delete', views.PostDelete.as_view(), name="post_delete"),
 
 ]
 
