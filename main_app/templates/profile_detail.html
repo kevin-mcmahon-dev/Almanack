@@ -32,7 +32,7 @@
     <div class="row row-cols-1 row-cols-md-3 g-4">
 
       <!-- WHY does this work??  -->
-      {% for post in object.user.profile.posts.all %}
+      {% for post in object.user.profile.posts.all reversed %}
 
         <div class="col">
           <div class="card h-50">
@@ -42,7 +42,7 @@
               <!-- <p class="card-text">{{post.title}}</p> -->
 
                 <!-- url needs .post? or?  -->
-              <a href="{% url 'post_show' object.user.profile.id%}"><button>{{post.title}}</button></a>     
+              <a href=""><button>{{post.title}}</button></a>     
 
             </div>
             <div class="card-footer">
@@ -52,8 +52,6 @@
           {% endfor %}
 
         </div>
-
-
       </div>
 </div>
 

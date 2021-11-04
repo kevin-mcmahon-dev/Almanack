@@ -102,15 +102,21 @@ class Cities(TemplateView):
         context["cities"] = City.objects.all()
         return context
 
+
+
 class CityDetail(DetailView):
     model = City
+    
     template_name = "city_detail.html"
 
-    # *****This is the good stuff right here
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["posts"] = Post.objects.all()
+        return context
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["cities"] = City.objects.all()
-        # context["posts"] = Post.objects.all()
         return context
 
 class PostShow(DetailView):
