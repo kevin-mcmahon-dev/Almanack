@@ -18,8 +18,8 @@
     <div class="post-body">
         {{post.content}}
     </div>
-
-    {% if user.is_authenticated %}
+    <!-- user.is_authenticated  -->
+    {% if post.profile.user == user %}
     
     <a href="{% url 'post_update' post.pk %}" class="button is-info">
         Edit Post
