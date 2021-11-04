@@ -51,6 +51,7 @@ class ProfileDetail(DetailView):
         # context["users"] = User.objects.all
         return context
 
+
 class Signup(View):
     # show a form to fill out
     # def __init__(self, *args, **kwargs):
