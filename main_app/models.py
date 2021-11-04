@@ -16,7 +16,7 @@ class Profile(models.Model):
     image = models.CharField(max_length=1000, default="https://cybergisxhub.cigi.illinois.edu/wp-content/uploads/2020/10/Portrait_Placeholder.png")
     location = models.CharField(max_length=250, default="Denver, CO")
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
-    slug = SlugField(unique=True)
+    # slug = SlugField(unique=True)
 
     def __str__(self):
         return self.user
