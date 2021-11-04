@@ -43,11 +43,11 @@
                   <div class="post-image">
                   <!-- <img src="https://images.pexels.com/photos/1141853/pexels-photo-1141853.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260" class="d-block w-100" alt="..."> -->
                   </div>
-                  <a class="post-title" href=""><button>Title: {{post.title}}</button></a>     
+                  <a class="post-title" href="{% url 'post_show' post.id%}"><button>Title: {{post.title}}</button></a>     
               {% endfor %}
               </div>      
             </div>
-            
+
             {% if user.is_authenticated %}
             <h1 class="title">Create Post</h1>
             <form method="post" action="{% url 'post_create' city.pk%}">
