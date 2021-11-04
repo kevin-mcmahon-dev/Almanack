@@ -1,10 +1,11 @@
-{% extends 'cities_base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block content %}
 
       <!-- Cities End-Bar -->
-    <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white side-nav" style="width: 380px;">
+    <div class="city-detail-container">
+      <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white side-nav" style="width: 380px;">
         <a href="{%url 'cities' %}" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
           <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
           <span class="fs-5 fw-semibold">Cities</span>
@@ -22,17 +23,19 @@
           {% endfor %}
         </div>
       </div> 
- 
+    </div>
       <!-- Almanack cities index page info/blurb div etc.  -->
       <div class="city-info">
         <div class="city">
-            <div class="title">
+              <div class="img">
+                <img src="https://i.imgur.com/WcMCaLM.png" class="logo" alt="logo">
+              </div>
+              <div class="title">
                 <h3 class="all-cities">Explore all of the cities visited by almanack members:</h3>
               </div>
-              <div class="img">
-                  <img src="https://i.imgur.com/WcMCaLM.png" class="logo" alt="logo">
-              </div>
+              
         </div>
+      </div>
 
 
 
