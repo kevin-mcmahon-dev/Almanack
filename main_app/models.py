@@ -68,7 +68,7 @@ class City(models.Model):
 
 class Post(models.Model):
     
-    title = models.CharField(max_length=250)
+    title = models.CharField(max_length=200)
     content = models.TextField(max_length=1000)
     image = models.CharField(max_length=250)
     timestamp = models.DateTimeField(auto_now_add=True)
