@@ -1,4 +1,4 @@
-.side-nav {
+/* .side-nav {
     position: absolute;
 }
 
@@ -24,4 +24,32 @@
     flex-direction: column;
     width: 100px;
     height: 100px;
+} */
+
+/* body  {
+    splay: flexdi;
+} */
+
+.logo   {
+    float: right;
+}
+.fs-5 fw-semibold   {
+    float: left;
+}
+.all-cities {
+    
+    font-family: 'Comfortaa', cursive;
+    font-size: 30px;
+    font-weight: 500;
+    
+}
+.title {
+    text-align: center;
+}
+
+span    {
+    font-family: 'Comfortaa', cursive;
+    font-size: 40px;
+    text-decoration: underline;
+    font-weight: 700;
 }
