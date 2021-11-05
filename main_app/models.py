@@ -6,6 +6,7 @@ from django.db.models.fields import SlugField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django import forms
+from django.urls import reverse
 
 
 # Create your models here.
@@ -17,8 +18,10 @@ class Profile(models.Model):
     location = models.CharField(max_length=250, default="Denver, CO")
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
 
+
     def __str__(self):
         return f'{self.user} - {self.slug}'
+
     
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -29,24 +32,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
 
-# def update_profile(request, user_id):
-#     user = User.objects.get(pk=user_id)
-#     user.save() 
-
-    # def __str__(self):
-    #     return self.name #name is reference to user model
-    # class Meta:
-    #     ordering = ['name'] #also affected by user model
-
-# @receiver(post_save, sender=User)
-# def create_user_profile(sender, instance, created, **kwargs):
-#     if created:
-#         Profile.objects.create(user=instance)
-
-# @receiver(post_save, sender=User)
-# def save_user_profile(sender, instance, **kwargs):
-#     instance.profile.save()
-
+    
 class City(models.Model):
 
     name = models.CharField(max_length=250)
@@ -62,14 +48,16 @@ class City(models.Model):
     def __str__(self):
         return self.name
 
+      
 class Post(models.Model):
+
     title = models.CharField(max_length=250)
     slug = SlugField()
     content = models.TextField(max_length=1000)
     image = models.CharField(max_length=250)
     timestamp = models.DateTimeField(auto_now_add=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='posts')
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='posts')
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='posts'
 
     def __str__(self):
         return self.title
@@ -82,9 +70,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
-
-# class UserForm(forms.Form):
-#     name = forms.CharField()
-#     email = forms.EmailField()
-#     text = forms.CharField(widget = forms.Textarea)
-    

@@ -1,34 +1,7 @@
+{% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
 
-      <!DOCTYPE html>
-      <html lang="en">
-      <head>
-          <meta charset="UTF-8">
-          <meta http-equiv="X-UA-Compatible" content="IE=edge">
-          <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-          <link rel="stylesheet" href=" {% static 'styles/cities.css' %} ">
-      
-          <title>Cities</title>
-      </head>
-
-      
-      <body>
-          <nav class="navbar navbar-dark bg-dark" >
-              <div class="container-fluid">
-                <a class="navbar-brand">Almanack</a>
-                <form class="d-flex">
-                  
-                  <button class="btn btn-link" type="submit">Sign in </button>
-                  <button class="btn btn-link" type="submit">Sign up</button>
-                  <button class="btn btn-link" type="submit">Profile</button>
-                </form>
-
-              </div>
-            </nav>
-    
 
            <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white side-nav" style="width: 380px;">
               <a href="{%url 'cities' %}" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
@@ -36,65 +9,59 @@
                 <span class="fs-5 fw-semibold">Cities</span>
               </a>
     
+  <!-- Each city in Side Bar tabs -->
+         <div class="list-group list-group-flush border-bottom scrollarea">
+          {% for name in cities.all %}
+ 
+          <a href="{%url 'city_detail' name.id%}" class="list-group-item list-group-item-action active py-3 lh-tight" aria-current="true">
+            <div class="d-flex w-100 align-items-center justify-content-between">             
+              <strong class="mb-1">{{name}}</strong>         
+            </div>
+          </a> 
+          {% endfor %}
+        </div>
+      </div> 
 
-              <div class="list-group list-group-flush border-bottom scrollarea">
-                <a href="sanfrancisco" class="list-group-item list-group-item-action active py-3 lh-tight" aria-current="true">
-                  <div class="d-flex w-100 align-items-center justify-content-between">
-                    <strong class="mb-1">{{cities.name}}</strong>
-                  </div>
-                </a>               
-              </div>
-            </div> 
+       <!-- To get the city -->
+            <div class="city-info">
+              <div class="city">                          
+                    <div class="title">
+                      <h1>{{city.name}}</h1>
 
-          
-
-    <div class="city-info">
-      
-             <div class="city">
-      
-                  <div class="title">
-                     <h1>{{city.name}}</h1>
                     </div>
+                
+                      <div class="img">
+                           <img src="{{city.image}}" class="d-block w-100" alt="city image">
+                      </div>
+                
+                </div>
+             </div>
 
-                    <div class="img">
-                        <img src="{{city.image.url}}" class="d-block w-100" alt="...">
-                    </div>
-
-              </div> 
-              
-      
-              
-              
-              {% for post in city.posts.all reversed%}
-  
+         <!-- Post titles for that city -->
+              {% for post in city.posts.all reversed %}
               <div class="posts">
+                
                   <div class="post-image">
                   <img src="{post.image.url}" class="d-block w-100" alt="..."> 
                   </div>
-                  <h3 class="post-title">{{post.title}}</h3>
-                  <p> {{post.content}}</p>
                 
-              </div>
-        
-      
-            </div> 
+               <a class="post-title" href="{% url 'post_show' post.id%}"><button>Title: {{post.title}}</button></a>     
+              {% endfor %}
+              </div>      
+            </div>
 
-            {%endfor%}
-
-
-     
-        
-      
+     {% if user.is_authenticated %}
+            <h1 class="title">Create Post</h1>
+            <form method="post" action="{% url 'post_create' city.pk%}">
+              {% csrf_token %}
+              <input class="input" type="text" name="title" placeholder="Title" required />
+              <input class="input" type="text" name="content" placeholder="Add your post here!" required />
+              <input class="input" type="text" name="image" placeholder="Add an image" required />
+              <!-- <input class="input" type="text" name="profile" placeholder="Profile ID" required /> -->
+              <input type="submit" class="btn" value="Create Post" />
+            </form>
+            {% endif %}
+            
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
           
-      </body>
-      </html>
-      
-      
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
 {% endblock %}
-</body>
-</html>
