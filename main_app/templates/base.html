@@ -5,7 +5,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css"> -->
+
         <link rel="stylesheet" href="{% static 'styles/main.css' %}" />
         <link rel="stylesheet" href="{% static 'styles/cities.css' %}" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
@@ -16,7 +16,8 @@
         <script src="{% static 'scripts/main.js' %}" defer></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-        <title>almanack  {% block title %}{% endblock %}</title> 
+
+        <title>Almanack - {% block title %}{% endblock %}</title> 
     </head>
     <body>
         <nav class="navbar navbar-light" style="background-color: black;">
@@ -30,12 +31,14 @@
                     <span class="navbar-item px-2">Welcome: {{user.username}}</span>
                     <a class="navbar-item px-2" href="{% url 'profile_detail' user.profile.id %}">Profile</a>
                     <a class="navbar-item px-2" href="{% url 'logout' %}">Logout</a>
+
                 </div>
             {% else %}
                 <div class="navbar-menu navbar-end">
                 <a class="navbar-item px-2" href="{% url 'signup' %}">Sign Up</a>
                 <a class="navbar-item px-2" href="{% url 'login' %}">Log In</a>
                 </div>
+      
             {% endif %}
           </nav>
 
