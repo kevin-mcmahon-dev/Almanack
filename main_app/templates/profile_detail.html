@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-{% load tz %}
 {% block title %}Profile Detail{% endblock %}
 {% block content %}
 
@@ -7,10 +6,13 @@
     <div class="card mb-3" style='width: 100%;'>
         <div class="row g-0">
           <div class="col-md-4">
+
             <img src="{{object.user.profile.image}}" class="img-fluid rounded-start" alt="user profile image">
+
           </div>
           <div class="col-md-8 mx-auto">          
             <div class="card-body">
+              
               <h5 class="card-title">Username: {{object.user.username}}</h5>
               <p class="card-text">Full Name: {{object.user.first_name}} {{object.user.last_name}}</p>
               <p class="card-text">Location: {{object.user.profile.location}}</p>
@@ -38,7 +40,7 @@
               <!-- <p class="card-text">{{post.title}}</p> -->
 
                 <!-- url needs .post? or?  -->
-              <a href=""><button>{{post.title}}</button></a>     
+              <a href="{% url 'post_show' post.id%}"><button>{{post.title}}</button></a>     
 
             </div>
             <div class="card-footer">

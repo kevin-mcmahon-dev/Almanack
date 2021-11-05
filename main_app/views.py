@@ -1,6 +1,8 @@
 
+from typing import ContextManager
 from django.shortcuts import redirect, render
 from django.views import View
+from django.views.generic import detail
 from django.views.generic.base import TemplateView
 from django.http import HttpResponse
 from .models import Profile, City, Post, Comment
@@ -31,11 +33,13 @@ class Index(TemplateView):
         context['cities'] = City.objects.all()
         return context
 
+
     # def temporary_redirect_view(request):
     #     response = redirect('signup.html')
     #     response.status_code = 307
     #     return response
 
+# @login_required(login_url='/accounts/login/')
 class ProfileDetail(DetailView):
 
     model = Profile
@@ -104,8 +108,8 @@ class Cities(TemplateView):
 
 
 class CityDetail(DetailView):
+  
     model = City
-    
     template_name = "city_detail.html"
 
     def get_context_data(self, **kwargs):
@@ -118,48 +122,46 @@ class CityDetail(DetailView):
         context["cities"] = City.objects.all()
         return context
 
-# class ProfileUpdateView(LoginRequiredMixin, TemplateView):
-#     user_form = UserForm
-#     profile_form = ProfileForm
-#     template_name = 'common/profile-update.html'
 
-#     def post(self, request):
 
-#         post_data = request.POST or None
+class PostShow(DetailView):
+    model = Post
+    template_name = "post_show.html"
 
-#         user_form = UserForm(post_data, instance=request.user)
-#         profile_form = ProfileForm(post_data, instance=request.user.profile)
 
-#         if user_form.is_valid() and profile_form.is_valid():
-#             user_form.save()
-#             profile_form.save()
-#             # messages.success(request, 'Your profile was successfully updated!')
-#             # return HttpResponseRedirect(reverse_lazy('profile'))
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["posts"] = Post.objects.all()
+        return context
 
-#         context = self.get_context_data(
-#                                         user_form=user_form,
-#                                         profile_form=profile_form
-#                                     )
 
-#         return self.render_to_response(context)     
 
-#     def get(self, request, *args, **kwargs):
-#         return self.post(request, *args, **kwargs)
+class PostCreate(View):
 
-# def get_name(request):
-#     # if this is a POST request we need to process the form data
-#     if request.method == 'POST':
-#         # create a form instance and populate it with data from the request:
-#         form = NameForm(request.POST)
-#         # check whether it's valid:
-#         if form.is_valid():
-#             # process the data in form.cleaned_data as required
-#             # ...
-#             # redirect to a new URL:
-#             return HttpResponseRedirect('/thanks/')
+    def post(self, request, pk):
+        
+        def get_user(request):
+            current_user = request.user
+            return current_user
 
-#     # if a GET (or any other method) we'll create a blank form
-#     else:
-#         form = NameForm()
+        title = request.POST.get("title")
+        image = request.POST.get("image")
+        content = request.POST.get("content")
+        city = City.objects.get(pk=pk)
+        profile = get_user(request)
+        profile_id = profile.id
+        Post.objects.create(title=title, image=image, content=content, city=city, profile_id=profile_id)
+        return redirect("/")
+        # return redirect("cities_detail", pk=pk)
 
-#     return render(request, 'name.html', {'form': form})
+class PostUpdate(UpdateView):
+    model = Post
+    fields = ['title', 'content', 'image']
+    template_name = "post_update.html"
+    success_url = "/"
+
+class PostDelete(DeleteView):
+    model = Post
+    template_name = "post_delete_confirmation.html"
+    success_url = "/"
+
