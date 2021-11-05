@@ -1,9 +1,4 @@
 
-/* .main-content {
-   
-    font-family: 'Comfortaa', cursive;
-    font-size: 28px;
-} */
 .navbar-item {
     font-family: 'Comfortaa', cursive;
     font-size: 24px;
@@ -44,7 +39,6 @@ img {
 
 .title {
     display: block;
-    /* width: 500px; */
     height: auto;
     opacity: 0.8;
     margin-left: auto;
@@ -52,6 +46,18 @@ img {
     width: 60%;
     margin-bottom: 40px;
     margin-top: 30px;
-    
 }
 
+h5 a {
+    color: white;
+}
+
+h5 a:hover {
+    color: black;
+}
+
+.user-img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
